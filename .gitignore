@@ -32,3 +32,5 @@ lib64
 ~$DOC.docx
 db.sqlite3
 tmp/
+ffmpeg.exe
+mp3/
