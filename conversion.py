@@ -21,7 +21,7 @@ class Converter:
         clip = mp.VideoFileClip(vid_path)
         vid_filename = ntpath.basename(vid_path)
         mp3_filename = ntpath.splitext(vid_filename)[0] + '.mp3'
-        clip.audio.write_audiofile(mp3_filename)
+        chunk = clip.audio.write_audiofile(mp3_filename)
         del clip.reader
         del clip
         # Move mp3 to mp3/
@@ -29,3 +29,4 @@ class Converter:
         if not os.path.exists(mp3_dir):
             os.makedirs(mp3_dir)
         shutil.move(mp3_filename, mp3_dir + '/' + mp3_filename)
+        os.remove(str(vid_path))
