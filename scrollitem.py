@@ -28,12 +28,16 @@ class ScrollItem(BoxLayout):
         self.progressbar.size_hint = (0.2, 1)
         self.add_widget(self.progressbar)
 
-        Clock.schedule_interval(self.update, 1 / 50.)
+        Clock.schedule_interval(self.update, 1 / 20.)
+        print(len(scroll_items))
 
     def update(self, *args):
         if self.progressbar.value == 100:
             pass
-        if self not in scroll_items and len(scroll_items) < MAX_SIZE:
-            scroll_items.append(self)
-
-        self.progressbar.value += 1
+        if self in scroll_items:
+            self.progressbar.value += 1
+            if self.progressbar.value >= 100:
+                scroll_items.remove(self)
+        else:
+            if len(scroll_items) < MAX_SIZE:
+                scroll_items.append(self)
