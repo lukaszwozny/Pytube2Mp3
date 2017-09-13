@@ -6,7 +6,7 @@ import moviepy.editor as mp
 
 
 class Converter:
-    def download_yt_video(url):
+    def download_yt_video(url, on_progress=None):
         video_dir = 'tmp'
         if not os.path.exists(video_dir):
             os.makedirs(video_dir)
@@ -14,7 +14,7 @@ class Converter:
         extension = 'mp4'
         vid_path = video_dir + '/' + yt.filename + '.' + extension
         video = yt.filter(extension)[0]
-        video.download(video_dir)
+        video.download(path=video_dir, force_overwrite=True, on_progress=on_progress)
         return vid_path
 
     def convert_video_to_mp3(vid_path):
