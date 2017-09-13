@@ -21,7 +21,8 @@ class Converter:
         clip = mp.VideoFileClip(vid_path)
         vid_filename = ntpath.basename(vid_path)
         mp3_filename = ntpath.splitext(vid_filename)[0] + '.mp3'
-        chunk = clip.audio.write_audiofile(mp3_filename)
+        clip.audio.write_audiofile(filename=mp3_filename,
+                                   progress_bar=False)
         del clip.reader
         del clip
         # Move mp3 to mp3/
