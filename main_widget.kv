@@ -20,29 +20,28 @@ RootWidget:
                 Rectangle:
                     size: self.size
 
-            BoxLayout:
-                orientation: 'vertical'
+            FloatLayout:
+
                 Button:
-#                    size_hint: None, None
-#                    size: '150dp', '48dp'
+                    size_hint: .5, .2
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.8}
                     text: 'Start'
                     on_release:
                         sm.transition = SlideTransition(direction='left')
                         sm.current = 'conversion_screen'
                 Button:
-#                    size_hint: None, None
-#                    size: '150dp', '48dp'
-                    text: 'Go to screen 2'
+                    size_hint: .5, .2
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    text: 'Settings'
                     on_release:
                         sm.transition = SlideTransition(direction='left')
-                        sm.current = 'conversion_screen'
+                        sm.current = 'settings_screen'
                 Button:
-#                    size_hint: None, None
-#                    size: '150dp', '48dp'
-                    text: 'Go to screen 2'
+                    size_hint: .5, .2
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+                    text: 'Quit'
                     on_release:
-                        sm.transition = SlideTransition(direction='left')
-                        sm.current = 'conversion_screen'
+                        app.stop()
 
         Screen:
             name: 'conversion_screen'
@@ -65,7 +64,7 @@ RootWidget:
 
                     Button:
                         size_hint: .2, 1
-                        text: '22'
+                        text: 'Convert'
                         on_release:
                             scroll_layout.add_widget(ScrollItem(url_text.text))
                             url_text.text = ''
@@ -83,15 +82,39 @@ RootWidget:
                         # set the height of the layout to the combined height of the children
                         height: self.minimum_height
 
+                Button:
+                    size_hint: .25, .1
+                    pos_hint: {'center_x': 0.5, 'y': 0.05}
+                    text: 'Back'
+                    on_release:
+                        sm.transition = SlideTransition(direction='right')
+                        sm.current = 'screen1'
 
+        Screen:
+            name: 'settings_screen'
+            canvas.before:
+                Color:
+                    rgb: .2, .8, .2
+                Rectangle:
+                    size: self.size
+            FloatLayout:
 
+                BoxLayout:
+                    id: url_box
+                    orientation: 'horizontal'
+                    size_hint: .9, .05
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.8}
 
+                    Label:
+                        id: option_1
+                        text: 'Option 1'
+                        size_hint: .8, 1
 
-
-                ProgressBar:
-                    size_hint: .9, .2
-                    pos_hint: {'center_x': 0.5, 'y': 0.10}
-                    value: 70
+                    Button:
+                        size_hint: .2, 1
+                        text: 'Change'
+                        on_release:
+                            print(option_1.text)
 
                 Button:
                     size_hint: .25, .1

@@ -1,20 +1,37 @@
 import ntpath
 import shutil
 import os
+from urllib.error import URLError
+
 from pytube import YouTube
 import moviepy.editor as mp
 
 
 class Converter:
+    def get_yt_title(url):
+        try:
+            yt = YouTube(url=url)
+            return yt.title
+        except ValueError:
+            return 'ERROR'
+
     def download_yt_video(url, on_progress=None):
         video_dir = 'tmp'
         if not os.path.exists(video_dir):
             os.makedirs(video_dir)
-        yt = YouTube(url=url)
+        try:
+            yt = YouTube(url=url)
+        except ValueError:
+            raise ValueError
+        except URLError:
+            raise URLError
         extension = 'mp4'
         vid_path = video_dir + '/' + yt.filename + '.' + extension
         video = yt.filter(extension)[0]
-        video.download(path=video_dir, force_overwrite=True, on_progress=on_progress)
+        try:
+            video.download(path=video_dir, force_overwrite=True, on_progress=on_progress)
+        except URLError:
+            raise URLError
         return vid_path
 
     def convert_video_to_mp3(vid_path):
