@@ -1,0 +1,52 @@
+#:kivy 1.10.0
+#:import Factory kivy.factory.Factory
+#:import ConversionScreen ConversionScreen.ConversionScreen
+#:import ScrollItem scrollitem.ScrollItem
+
+
+<ConversionScreen>:
+    id: conversion_screen
+    canvas.before:
+        Color:
+            rgb: .2, .8, .2
+        Rectangle:
+            size: self.size
+    FloatLayout:
+
+        BoxLayout:
+            id: url_box
+            orientation: 'horizontal'
+            size_hint: .9, .05
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+
+            TextInput:
+                id: url_text
+                size_hint: .8, 1
+
+            Button:
+                size_hint: .2, 1
+                text: 'Convert'
+                on_release:
+                    scroll_layout.add_widget(ScrollItem(url_text.text))
+                    url_text.text = ''
+
+        ScrollView:
+            size_hint: .9, .5
+            pos_hint: {'center_x': 0.5, 'y': 0.25}
+
+            GridLayout:
+                id: scroll_layout
+                padding: 20
+                spacing: 10
+                cols: 1
+                size_hint_y:  None
+                # set the height of the layout to the combined height of the children
+                height: self.minimum_height
+
+        Button:
+            size_hint: .25, .1
+            pos_hint: {'center_x': 0.5, 'y': 0.05}
+            text: 'Back'
+            on_release:
+                conversion_screen.parent.transition = SlideTransition(direction='right')
+                conversion_screen.parent.current = 'screen1'
