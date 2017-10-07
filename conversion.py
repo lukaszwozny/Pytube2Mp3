@@ -4,8 +4,7 @@ import os
 from urllib.error import URLError
 
 from pytube import YouTube
-import moviepy.editor as mp
-
+from moviepy.video.io.VideoFileClip import VideoFileClip
 
 class Converter:
     def get_yt_title(url):
@@ -35,7 +34,7 @@ class Converter:
         return vid_path
 
     def convert_video_to_mp3(vid_path):
-        clip = mp.VideoFileClip(vid_path)
+        clip = VideoFileClip(vid_path)
         vid_filename = ntpath.basename(vid_path)
         mp3_filename = ntpath.splitext(vid_filename)[0] + '.mp3'
         clip.audio.write_audiofile(filename=mp3_filename,
