@@ -27,7 +27,8 @@ class Application(App):
 if __name__ == '__main__':
     # remove all from tmp/ folder
     directory = 'tmp'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     for file in os.listdir(directory):
         os.remove(ntpath.join(directory, file))
     Application().run()
-
