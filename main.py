@@ -3,10 +3,11 @@ import os
 
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.button import Button
+from kivy.config import Config
 
 from conversion import Converter
 
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
 def main():
     url = 'https://www.youtube.com/watch?v=DebhiaQH3ps'
@@ -15,9 +16,10 @@ def main():
     os.remove(vid_path)
 
 
-class Application(App):
+class Youtube2Mp3(App):
     def build(self):
-        super(Application, self).build()
+        super(Youtube2Mp3, self).build()
+        Builder.load_file('settings_screen.kv')
         root_widget = Builder.load_file('main_widget.kv')
         return root_widget
         # return root_widget
@@ -31,4 +33,4 @@ if __name__ == '__main__':
         os.makedirs(directory)
     for file in os.listdir(directory):
         os.remove(ntpath.join(directory, file))
-    Application().run()
+    Youtube2Mp3().run()
