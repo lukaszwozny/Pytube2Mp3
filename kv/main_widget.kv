@@ -3,6 +3,7 @@
 #:import RootWidget RootWidget.RootWidget
 #:import SlideTransition kivy.uix.screenmanager.SlideTransition
 #:import ScrollItem scrollitem.ScrollItem
+#:import SettingsScreen SettingsScreen.SettingsScreen
 
 RootWidget:
     rows: 2
@@ -90,36 +91,5 @@ RootWidget:
                         sm.transition = SlideTransition(direction='right')
                         sm.current = 'screen1'
 
-        Screen:
+        SettingsScreen:
             name: 'settings_screen'
-            canvas.before:
-                Color:
-                    rgb: .2, .8, .2
-                Rectangle:
-                    size: self.size
-            FloatLayout:
-
-                BoxLayout:
-                    id: url_box
-                    orientation: 'horizontal'
-                    size_hint: .9, .05
-                    pos_hint: {'center_x': 0.5, 'center_y': 0.8}
-
-                    Label:
-                        id: option_1
-                        text: 'Option 1'
-                        size_hint: .8, 1
-
-                    Button:
-                        size_hint: .2, 1
-                        text: 'Change'
-                        on_release:
-                            print(option_1.text)
-
-                Button:
-                    size_hint: .25, .1
-                    pos_hint: {'center_x': 0.5, 'y': 0.05}
-                    text: 'Back'
-                    on_release:
-                        sm.transition = SlideTransition(direction='right')
-                        sm.current = 'screen1'

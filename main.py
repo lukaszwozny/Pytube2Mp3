@@ -19,11 +19,9 @@ def main():
 class Youtube2Mp3(App):
     def build(self):
         super(Youtube2Mp3, self).build()
-        Builder.load_file('settings_screen.kv')
-        root_widget = Builder.load_file('main_widget.kv')
+        Builder.load_file('kv//settings_screen.kv')
+        root_widget = Builder.load_file('kv//main_widget.kv')
         return root_widget
-        # return root_widget
-        # return MyButton()
 
 
 if __name__ == '__main__':
