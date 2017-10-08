@@ -2,6 +2,7 @@
 #:import Factory kivy.factory.Factory
 #:import SettingsScreen SettingsScreen.SettingsScreen
 #:import ScrollItem scrollitem.ScrollItem
+#:import SettingsEntries ui.SettingsEntries.SettingsEntries
 
 
 <SettingsScreen>:
@@ -11,24 +12,9 @@
             rgb: .2, .8, .2
         Rectangle:
             size: self.size
-    FloatLayout:
-
-        BoxLayout:
-            id: url_box
-            orientation: 'horizontal'
-            size_hint: .9, .05
-            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
-
-            Label:
-                id: enable_dots
-                text: 'Lacz kropki'
-                size_hint: .8, 1
-
-            Button:
-                size_hint: .2, 1
-                text: 'Change'
-                on_release:
-                    print(enable_dots.text)
+    BoxLayout:
+        orientation: 'vertical'
+        SettingsEntries:
 
         Button:
             size_hint: .25, .1

@@ -21,6 +21,7 @@ class Youtube2Mp3(App):
         super(Youtube2Mp3, self).build()
         Builder.load_file('kv//conversion_screen.kv')
         Builder.load_file('kv//settings_screen.kv')
+        Builder.load_file('kv//settings_entries.kv')
         root_widget = Builder.load_file('kv//main_widget.kv')
         return root_widget
 

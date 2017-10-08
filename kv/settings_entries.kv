@@ -1,0 +1,39 @@
+#:kivy 1.10.0
+#:import Factory kivy.factory.Factory
+#:import ScrollItem scrollitem.ScrollItem
+#:import SettingsEntries ui.SettingsEntries.SettingsEntries
+#:import DotsButton ui.ToggleButtons.DotsButton
+
+<MyBoxLayout@BoxLayout>:
+    id: url_box
+    orientation: 'horizontal'
+    height: 50
+    size_hint_y: None
+    padding: 0, 0, 0, 10
+
+<SettingsEntries>:
+    orientation: 'vertical'
+    padding: 10, 20, 10, 0
+
+    MyBoxLayout:
+        Label:
+            id: enable_dots
+            text: 'Lacz kropki'
+            size_hint: .8, 1
+
+        DotsButton:
+            size_hint: .2, 1
+
+    MyBoxLayout:
+        Label:
+            id: enable_dots
+            text: 'Lacz kropki'
+            size_hint: .8, 1
+
+        Button:
+            size_hint: .2, 1
+            text: 'Change'
+            on_release:
+                print(enable_dots.text)
+
+    Widget:
