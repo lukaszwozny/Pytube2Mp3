@@ -1,3 +1,8 @@
+from tkinter import Tk
+from tkinter.filedialog import askdirectory
+
+from kivy.properties import ObjectProperty
+from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 
 
@@ -33,3 +38,16 @@ class DotsButton(MyToggleButton):
 
     def disable(self):
         print('Dissable')
+
+
+class BrowseButton(Button):
+    mp3_label = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super(BrowseButton, self).__init__(**kwargs)
+        self.text = 'Browse'
+
+    def on_release(self):
+        Tk().withdraw()
+        directory = askdirectory()
+        self.mp3_label.text = directory

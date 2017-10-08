@@ -2,7 +2,8 @@
 #:import Factory kivy.factory.Factory
 #:import ScrollItem scrollitem.ScrollItem
 #:import SettingsEntries ui.SettingsEntries.SettingsEntries
-#:import DotsButton ui.ToggleButtons.DotsButton
+#:import DotsButton ui.Buttons.BrowseButton
+#:import DotsButton ui.Buttons.DotsButton
 
 <MyBoxLayout@BoxLayout>:
     id: url_box
@@ -26,14 +27,12 @@
 
     MyBoxLayout:
         Label:
-            id: enable_dots
+            id: mp3_label
             text: 'Lacz kropki'
             size_hint: .8, 1
 
-        Button:
+        BrowseButton:
+            mp3_label: mp3_label
             size_hint: .2, 1
-            text: 'Change'
-            on_release:
-                print(enable_dots.text)
 
     Widget:
