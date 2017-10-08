@@ -4,6 +4,7 @@
 #:import SettingsEntries ui.SettingsEntries.SettingsEntries
 #:import DotsButton ui.Buttons.BrowseButton
 #:import DotsButton ui.Buttons.DotsButton
+#:import ConfigManager ConfigManager.ConfigManager
 
 <MyBoxLayout@BoxLayout>:
     id: url_box
@@ -15,6 +16,7 @@
 <SettingsEntries>:
     orientation: 'vertical'
     padding: 10, 20, 10, 0
+    mp3_label: mp3_label
 
     MyBoxLayout:
         Label:
@@ -28,7 +30,7 @@
     MyBoxLayout:
         Label:
             id: mp3_label
-            text: 'Lacz kropki'
+            text: ConfigManager.config().get('main', 'mp3_location')
             size_hint: .8, 1
 
         BrowseButton:

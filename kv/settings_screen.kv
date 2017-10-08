@@ -15,11 +15,23 @@
     BoxLayout:
         orientation: 'vertical'
         SettingsEntries:
+            id: settings_entries
+            save_button: save_button
 
-        Button:
-            size_hint: .25, .1
-            pos_hint: {'center_x': 0.5, 'y': 0.05}
-            text: 'Back'
-            on_release:
-                settings_screen.parent.transition = SlideTransition(direction='right')
-                settings_screen.parent.current = 'screen1'
+        BoxLayout:
+            Button:
+                size_hint: .25, .1
+                text: 'Back'
+                on_release:
+                    ConfigManager.load()
+                    settings_entries.update_label()
+                    settings_screen.parent.transition = SlideTransition(direction='right')
+                    settings_screen.parent.current = 'screen1'
+            Button:
+                id: save_button
+                size_hint: .25, .1
+                text: 'Save'
+                disabled: True
+                on_release:
+                    ConfigManager.save()
+                    self.disabled = True

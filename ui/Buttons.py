@@ -5,6 +5,8 @@ from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 
+from ConfigManager import ConfigManager
+
 
 class MyToggleButton(ToggleButton):
     text_on = 'On'
@@ -51,3 +53,7 @@ class BrowseButton(Button):
         Tk().withdraw()
         directory = askdirectory()
         self.mp3_label.text = directory
+        # Save to config file
+        ConfigManager.config().set('main', 'mp3_location', directory)
+        save_button = self.parent.parent.save_button
+        save_button.disabled = False

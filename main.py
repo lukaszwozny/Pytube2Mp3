@@ -5,6 +5,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.config import Config
 
+from ConfigManager import ConfigManager
 from conversion import Converter
 
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
@@ -27,6 +28,9 @@ class Youtube2Mp3(App):
 
 
 if __name__ == '__main__':
+    #load config file
+    ConfigManager.load()
+
     # remove all from tmp/ folder
     directory = 'tmp'
     if not os.path.exists(directory):

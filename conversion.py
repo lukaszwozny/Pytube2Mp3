@@ -6,6 +6,9 @@ from urllib.error import URLError
 from pytube import YouTube
 from moviepy.video.io.VideoFileClip import VideoFileClip
 
+from ConfigManager import ConfigManager
+
+
 class Converter:
     def get_yt_title(url):
         try:
@@ -42,7 +45,8 @@ class Converter:
         del clip.reader
         del clip
         # Move mp3 to mp3/
-        mp3_dir = 'mp3'
+        # mp3_dir = 'mp3'
+        mp3_dir = ConfigManager.config().get('main', 'mp3_location')
         if not os.path.exists(mp3_dir):
             os.makedirs(mp3_dir)
         shutil.move(mp3_filename, mp3_dir + '/' + mp3_filename)
