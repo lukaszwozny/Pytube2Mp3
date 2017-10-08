@@ -20,16 +20,19 @@
 
         BoxLayout:
             Button:
-                size_hint: .25, .1
+                height: 50
+                size_hint_y: None
                 text: 'Back'
                 on_release:
                     ConfigManager.load()
                     settings_entries.update_label()
+                    save_button.disabled = True
                     settings_screen.parent.transition = SlideTransition(direction='right')
                     settings_screen.parent.current = 'screen1'
             Button:
                 id: save_button
-                size_hint: .25, .1
+                height: 50
+                size_hint_y: None
                 text: 'Save'
                 disabled: True
                 on_release:
