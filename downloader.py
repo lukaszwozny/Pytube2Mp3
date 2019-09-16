@@ -2,9 +2,13 @@ import youtube_dl
 import os
 import queue
 import threading
+import pyperclip
+from time import sleep
+from winsound import *
 
 from tkinter import *
 import tkinter.ttk as ttk
+
 
 # Download data and config
 
@@ -22,6 +26,7 @@ download_options = {
 # Song Directory
 if not os.path.exists('Songs'):
     os.mkdir('Songs')
+    os.chdir('Songs')
 else:
     os.chdir('Songs')
 
@@ -50,10 +55,31 @@ class ThreadedTask(threading.Thread):
             self.queue.put("ERROR")
 
 
-class EntryFrame(Frame):
+class ClipboardTask(threading.Thread):
+    def __init__(self, queue):
+        threading.Thread.__init__(self)
+        self.queue = queue
+        self.last = ''
+        self.is_running = True
 
+    def run(self):
+        while self.is_running:
+            clipboard = pyperclip.paste()
+            if clipboard != '' and clipboard != self.last \
+                    and ('youtube' in clipboard or 'youtu.be' in clipboard):
+                self.last = clipboard
+                self.queue.put(clipboard)
+                PlaySound('../sound/good.wav', SND_FILENAME)
+            sleep(0.1)
+
+    def stop(self):
+        self.is_running = False
+
+
+class EntryFrame(Frame):
     def __init__(self, master, parent):
         super(EntryFrame, self).__init__(master)
+        master.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         self.parent = parent
 
@@ -67,6 +93,21 @@ class EntryFrame(Frame):
         )
         self.test_button.pack()
 
+        self.queue = queue.Queue()
+        self.thread = ClipboardTask(self.queue)
+        self.thread.start()
+        self.master.after(100, self.process_queue)
+
+    def process_queue(self):
+        try:
+            msg = self.queue.get(0)
+            print(msg)
+            self.parent.populate(msg)
+            self.master.after(100, self.process_queue)
+        except queue.Empty:
+            self.master.after(100, self.process_queue)
+
+
     def on_click(self):
         text = self.entry.get()
         if text == '':
@@ -75,6 +116,10 @@ class EntryFrame(Frame):
         self.entry.delete(0, END)
 
         self.parent.populate(text)
+
+    def on_closing(self):
+        self.thread.stop()
+        self.master.destroy()
 
 
 class WidgetItem(Frame):

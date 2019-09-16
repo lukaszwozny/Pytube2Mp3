@@ -4,7 +4,7 @@ base = None
 
 executables = [Executable("downloader.py", base=base)]
 
-packages = ["idna", "os", "youtube_dl", "queue", "threading", "tkinter"]
+packages = ["idna", "time", "winsound", "os", "youtube_dl", "queue", "threading", "tkinter", "pyperclip"]
 options = {
     'build_exe': {
         'packages': packages,
