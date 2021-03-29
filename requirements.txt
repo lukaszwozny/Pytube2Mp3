@@ -11,7 +11,7 @@ moviepy==1.0.0
 numpy==1.17.2
 Pillow==6.1.0
 proglog==0.1.9
-Pygments==2.4.2
+Pygments==2.7.4
 pytube==9.5.1
 requests==2.22.0
 tqdm==4.35.0
